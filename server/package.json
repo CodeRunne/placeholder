@@ -1,0 +1,20 @@
+{
+  "name": "test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "nodemon server.js",
+    "build": "cd client && npm run build",
+    "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\"",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "ngrok": "^4.3.3",
+    "nodemon": "^2.0.19"
+  }
+}

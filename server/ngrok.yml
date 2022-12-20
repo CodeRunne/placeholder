@@ -1,0 +1,6 @@
+authtoken: 2IveoTCAqa3jSLyBmgVe7xTWFIk_7ov5XiDc8xBKQWFCsuTQp
+tunnels:
+    cpanel_backend:
+        proto: http
+        addr: 3003
+        subdomain: cpanel_backend
