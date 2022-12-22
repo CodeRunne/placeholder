@@ -16,7 +16,12 @@ function MobileNavigation({ setIsOpen }) {
 				</MobileNavigationListItem>
 
 				<Button 
-	                onClick={() => navigate('/register')}
+	                onClick={() => {
+	                	navigate('/register');
+
+	                	// Close Navigation
+	                	setIsOpen();
+	                }}
 	                style={{
 	                    width: '100%',
 	                    padding: '.8rem 1.5rem',
