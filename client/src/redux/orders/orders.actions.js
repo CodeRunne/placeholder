@@ -97,10 +97,12 @@ export const fetchAllOrders = userID => {
 	return dispatch => {
 		dispatch(fetchAllOrdersPending());
 
-		axios.get(`${getAllOrdersApi(userID)}`).then(({ data }) => {
-			if(data.status === "success") 
-				dispatch(fetchAllOrdersSuccess(data.data));
-		});
+		setTimeout(() => {
+			axios.get(`${getAllOrdersApi(userID)}`).then(({ data }) => {
+				if(data.status === "success") 
+					dispatch(fetchAllOrdersSuccess(data.data));
+				});
+		}, 1500);
 	}
 };
 

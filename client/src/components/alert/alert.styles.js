@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const AlertContainer = styled.blockquote`
 	width: 100%;
-	height: 5.5rem;
+	height: 3rem;
 	padding: 1rem 1.2rem;
     background: var(--tertiary-tint-1);
     gap: .5rem;
@@ -63,14 +63,14 @@ export const AlertContainer = styled.blockquote`
 `;
 
 export const AlertText = styled.p`
-	font-size: 1.1rem;
+	font-size: 1.05rem;
     line-height: 1.5;
 
     @media (max-width: 1200px) {
-		font-size: 1.13rem;
+		font-size: 1.1rem;
 	}
 
 	@media (max-width: 1100px) {
-		font-size: 1.1rem;
+		font-size: 1.05rem;
 	}
 `;

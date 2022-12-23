@@ -41,28 +41,28 @@ function Api() {
 
                 {/* Code Block */}
                 <CodeBlock>
-                    <span className="code-rd nl">{"{"}</span>
-                    <div role="code-group" className="nl">
-                        <span className="pl code-bl">status</span>
+                    <span className="code-bl nl">{"{"}</span>
+                    <div role="code" className="nl">
+                        <span className="pl">status</span>
                         <span className="pr">:</span>
-                        <span>true</span>
+                        <span className="code-or">true</span>
                         <span>,</span>
                     </div>
 
-                    <div role="code-group" className="nl">
-                        <span className="pl code-bl nl">order</span>
-                        <span className="pr font-bold">:</span>
-                        <span>"mass"</span>
+                    <div role="code" className="nl">
+                        <span className="pl">orders</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">"mass"</span>
                         <span>,</span>
                     </div>
 
-                    <div role="code-group" className="nl">
-                        <span className="pl code-bl">quantity</span>
+                    <div role="code" className="nl">
+                        <span className="pl">quantity</span>
                         <span className="pr">:</span>
-                        <span>20</span>
+                        <span className="code-or">20</span>
                         <span>,</span>
                     </div>
-                    <span className="code-rd nl">{"}"}</span>
+                    <span className="code-bl nl">{"}"}</span>
                 </CodeBlock>
 
                 {/* Api Option Box */}

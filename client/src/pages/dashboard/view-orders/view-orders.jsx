@@ -5,8 +5,8 @@ import { createStructuredSelector } from 'reselect';
 import { AuthContext } from '../../../providers/auth-provider/auth-provider';
 import { fetchAllOrders } from '../../../redux/orders/orders.actions';
 import { selectAllOrders, selectOrderRequestStatus } from '../../../redux/orders/orders.selectors';
-import { Alert, Profile, EmptySlate, SEO, FilterFormContainer, Table, OrdersRow } from '../../../components';
-import { OrderContainer } from './view-orders.styles';
+import { Alert, Profile, EmptySlate, SEO, FilterFormContainer, Table, OrdersRow, Spinner } from '../../../components';
+import { OrdersContainer, OrderContentContainer } from './view-orders.styles';
 
 function ViewOrders({ fetchOrders, orders, ordersStatus }) {
 	const { currentUser: { id }} = useContext(AuthContext);
@@ -26,13 +26,13 @@ function ViewOrders({ fetchOrders, orders, ordersStatus }) {
 
 	let content;
 
-	if(ordersStatus === "pending") 
-		content = (<p>Loading...</p>);
+	if(ordersStatus !== "success") 
+		content = (<Spinner style={{ alignItems: "normal", marginTop: "6rem" }} />);
 	else if(orders.length && ordersStatus === "success") {
 		const ordersTableHead = ["ID", "category", "services", "link", "status", "quantity", "charge", "average time"];
 
 		content = (
-			<OrderContainer className="order-container">
+			<OrderContentContainer className="order-container">
 				<FilterFormContainer 
 					type="orders"
 					filterName="Show filters" />
@@ -40,7 +40,7 @@ function ViewOrders({ fetchOrders, orders, ordersStatus }) {
 				<Table tableHead={ordersTableHead}>
 		           {orders.map(order => <OrdersRow key={order?.id} {...order} />)}
 		        </Table>
-			</OrderContainer>
+			</OrderContentContainer>
 		);
 	} else 
 		content = ( <EmptySlate /> );
@@ -58,11 +58,14 @@ function ViewOrders({ fetchOrders, orders, ordersStatus }) {
                 type="article"
             />
 
-			{/* User Profile */}
-			<Profile style={{ marginTop: alertIsOpen ? '2rem' : '0' }} />
+        	{/* Orders Main Container */}
+			<OrdersContainer className="d-grid">
+				{/* User Profile */}
+				<Profile style={{ marginTop: alertIsOpen ? '2rem' : '0' }} />
 
-			{/* Orders Content */}
-			{content}
+				{/* Orders Content */}
+				{content}
+			</OrdersContainer>
 		</>
 	)
 }

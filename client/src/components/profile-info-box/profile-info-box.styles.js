@@ -63,7 +63,7 @@ export const ProfileInfoContainer = styled.div`
 `;
 
 export const ProfileInfoBoxTitle = styled.h5`
-	font-size: 1.43rem;
+	font-size: 1.45rem;
 	color: var(--primary);
 	text-transform: capitalize;
 

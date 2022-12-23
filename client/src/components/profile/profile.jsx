@@ -25,7 +25,7 @@ function Profile({ style }) {
 
 			<ProfileInfoBox 
 				icon={<IoLogoBitcoin />}
-				title={balanceSpent === 0 ? "$0.00" : `$${balanceSpent}`}
+				title={balanceSpent === 0 ? "0.00" : `${balanceSpent}`}
 				content="Balance spent"
 			/>
 
