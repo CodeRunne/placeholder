@@ -9,6 +9,11 @@ export const ProfileContainer = styled.div`
 		grid-column-gap: .5rem;
 	}
 
+	@media (max-width: 1100px) {
+		grid-template-columns: repeat(2, 1fr);
+		grid-column-gap: 1rem;
+	}
+
 	@media (max-width: 1024px) {
 		grid-template-columns: repeat(3, 1fr);
 		grid-column-gap: 1rem;

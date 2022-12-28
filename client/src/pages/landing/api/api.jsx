@@ -41,28 +41,30 @@ function Api() {
 
                 {/* Code Block */}
                 <CodeBlock>
-                    <span className="code-bl nl">{"{"}</span>
+                    <span className="code-or nl">{"{"}</span>
                     <div role="code" className="nl">
                         <span className="pl">status</span>
                         <span className="pr">:</span>
-                        <span className="code-or">true</span>
+                        <span className="code-grn">true</span>
                         <span>,</span>
                     </div>
 
                     <div role="code" className="nl">
                         <span className="pl">orders</span>
                         <span className="pr">:</span>
-                        <span className="code-grn">"mass"</span>
+                        <span className="code-or">"</span>
+                        <span className="code-or-lg">mass</span>
+                        <span className="code-or">"</span>
                         <span>,</span>
                     </div>
 
                     <div role="code" className="nl">
                         <span className="pl">quantity</span>
                         <span className="pr">:</span>
-                        <span className="code-or">20</span>
+                        <span className="code-grn">20</span>
                         <span>,</span>
                     </div>
-                    <span className="code-bl nl">{"}"}</span>
+                    <span className="code-or nl">{"}"}</span>
                 </CodeBlock>
 
                 {/* Api Option Box */}
@@ -74,7 +76,30 @@ function Api() {
 
                 {/* Code Block */}
                 <CodeBlock>
-                    Code block
+                    <span className="code-or nl">{"{"}</span>
+                    <div role="code" className="nl">
+                        <span className="pl">status</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">true</span>
+                        <span>,</span>
+                    </div>
+
+                    <div role="code" className="nl">
+                        <span className="pl">orders</span>
+                        <span className="pr">:</span>
+                        <span className="code-or">"</span>
+                        <span className="code-or-lg">mass</span>
+                        <span className="code-or">"</span>
+                        <span>,</span>
+                    </div>
+
+                    <div role="code" className="nl">
+                        <span className="pl">quantity</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">20</span>
+                        <span>,</span>
+                    </div>
+                    <span className="code-or nl">{"}"}</span>
                 </CodeBlock>
 
                 {/* Api Option Box */}
@@ -85,7 +110,30 @@ function Api() {
 
                 {/* Code Block */}
                 <CodeBlock>
-                    Code block
+                    <span className="code-or nl">{"{"}</span>
+                    <div role="code" className="nl">
+                        <span className="pl">status</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">true</span>
+                        <span>,</span>
+                    </div>
+
+                    <div role="code" className="nl">
+                        <span className="pl">orders</span>
+                        <span className="pr">:</span>
+                        <span className="code-or">"</span>
+                        <span className="code-or-lg">mass</span>
+                        <span className="code-or">"</span>
+                        <span>,</span>
+                    </div>
+
+                    <div role="code" className="nl">
+                        <span className="pl">quantity</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">20</span>
+                        <span>,</span>
+                    </div>
+                    <span className="code-or nl">{"}"}</span>
                 </CodeBlock>
 
                 {/* Api Option Box */}
@@ -96,7 +144,30 @@ function Api() {
 
                 {/* Code Block */}
                 <CodeBlock>
-                    Code block
+                    <span className="code-or nl">{"{"}</span>
+                    <div role="code" className="nl">
+                        <span className="pl">status</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">true</span>
+                        <span>,</span>
+                    </div>
+
+                    <div role="code" className="nl">
+                        <span className="pl">orders</span>
+                        <span className="pr">:</span>
+                        <span className="code-or">"</span>
+                        <span className="code-or-lg">mass</span>
+                        <span className="code-or">"</span>
+                        <span>,</span>
+                    </div>
+
+                    <div role="code" className="nl">
+                        <span className="pl">quantity</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">20</span>
+                        <span>,</span>
+                    </div>
+                    <span className="code-or nl">{"}"}</span>
                 </CodeBlock>
 
                 {/* Api Option Box */}
@@ -107,7 +178,30 @@ function Api() {
 
                 {/* Code Block */}
                 <CodeBlock>
-                    Code block
+                    <span className="code-or nl">{"{"}</span>
+                    <div role="code" className="nl">
+                        <span className="pl">status</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">true</span>
+                        <span>,</span>
+                    </div>
+
+                    <div role="code" className="nl">
+                        <span className="pl">orders</span>
+                        <span className="pr">:</span>
+                        <span className="code-or">"</span>
+                        <span className="code-or-lg">mass</span>
+                        <span className="code-or">"</span>
+                        <span>,</span>
+                    </div>
+
+                    <div role="code" className="nl">
+                        <span className="pl">quantity</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">20</span>
+                        <span>,</span>
+                    </div>
+                    <span className="code-or nl">{"}"}</span>
                 </CodeBlock>
 
                 {/* Api Option Box */}
@@ -118,7 +212,30 @@ function Api() {
 
                 {/* Code Block */}
                 <CodeBlock>
-                    Code block
+                    <span className="code-or nl">{"{"}</span>
+                    <div role="code" className="nl">
+                        <span className="pl">status</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">true</span>
+                        <span>,</span>
+                    </div>
+
+                    <div role="code" className="nl">
+                        <span className="pl">orders</span>
+                        <span className="pr">:</span>
+                        <span className="code-or">"</span>
+                        <span className="code-or-lg">mass</span>
+                        <span className="code-or">"</span>
+                        <span>,</span>
+                    </div>
+
+                    <div role="code" className="nl">
+                        <span className="pl">quantity</span>
+                        <span className="pr">:</span>
+                        <span className="code-grn">20</span>
+                        <span>,</span>
+                    </div>
+                    <span className="code-or nl">{"}"}</span>
                 </CodeBlock>
 
                 {/* Api Option Box */}

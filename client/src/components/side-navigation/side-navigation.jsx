@@ -7,11 +7,11 @@ import SideNavigationLink from '../side-navigation-link/side-navigation-link';
 import { SideNavigationContainer, SideNavigationCloseButton, AccountFundsContainer, AccountFundsHeading, AccountFunds, SideNavigationListItem } from './side-navigation.styles';
 
 function SideNavigation() {
-	const { hidden, toggleHidden } = useContext(SideNavContext);	
+	const { hidden, toggleHidden } = useContext(SideNavContext);
 
 	return (
 		<SideNavigationContainer 
-			className={`gradient d-flex d-flex-column d-a-cnt ${hidden ? "toggle" : ''}`}>
+			className={`gradient d-flex d-flex-column d-a-cnt ${!hidden ? "toggle" : ''}`}>
 			{/* Side Navigation Close Button */}
 			<SideNavigationCloseButton onClick={toggleHidden}>
 				<AiOutlineClose />

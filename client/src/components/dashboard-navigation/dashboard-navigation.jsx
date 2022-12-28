@@ -15,7 +15,7 @@ function DashboardNavigation() {
 	return (
 		<DashboardNavigationContainer className="d-flex d-j-sbtw d-a-cnt">
 			{/* Dashboard Navigation Logo */}
-			<DashboardNavigationLogo className="gradient-text" to="/dashboard">{APP_NAME}</DashboardNavigationLogo>
+			<DashboardNavigationLogo to="/dashboard">{APP_NAME}</DashboardNavigationLogo>
 
 			{/* Dashboard Navigation Right */}
 			<DashboardNavigationRight className="d-flex d-a-cnt">
@@ -25,7 +25,6 @@ function DashboardNavigation() {
 				{/* Logout Button */}
 				<Button 
 					onClick={logoutUser}
-					style={{ padding: '.3rem .5rem' }}
 				>Logout</Button>
 
 				{/* Hamburger */}

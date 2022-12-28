@@ -45,16 +45,24 @@ export const CodeBlockPre = styled.pre`
 			margin-right: .5rem;
 		}
 
+		@media (max-width: 1200px) {
+			font-size: 1.1rem;
+		}
+
 		@media (max-width: 900px) {
-			font-size: 1.03rem;
+			font-size: 1.12rem;
 		}
 
 		@media (max-width: 425px) {
-			font-size: 1.05rem;
+			font-size: 1.17rem;
 		}
 
 		@media (max-width: 375px) {
-	    	font-size: 1.1rem;
+	    	font-size: 1.12rem;
+	    }
+
+	    @media (max-width: 320px) {
+	    	font-size: 1.17rem;
 	    }
 	}
 

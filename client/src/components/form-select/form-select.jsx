@@ -5,7 +5,8 @@ import FormError from '../form-error/form-error';
 import FormSelectOption from '../form-select-option/form-select-option';
 import { FormGroup, FormSelectField } from './form-select.styles';
 
-function FormSelect({ label = "", handleChange=f=>f, error, options=[], ...otherSelectProps }) {
+function FormSelect({ label = "", handleChange=f=>f, error, options=[], isDisabled, ...otherSelectProps }) {
+	
 	return (
 		<FormGroup className="form-group d-flex d-flex-column" role="group">
 			{/* Form Label */}
@@ -15,7 +16,9 @@ function FormSelect({ label = "", handleChange=f=>f, error, options=[], ...other
 			<FormSelectField 
 				onChange={handleChange} 
 				{...otherSelectProps}
-				aria-invalid={error ? "true" : "false"}
+				aria-invalid={error ? true : false}
+				aria-disabled={isDisabled ? true : false}
+				disabled={isDisabled ? true : false}
 				required
 			>
 				{options.map((option, i) => <FormSelectOption key={`select option ${i}`} value={option} />)}
@@ -32,6 +35,7 @@ FormSelect.propTypes = {
 	handleChange: PropTypes.func.isRequired,
 	error: PropTypes.string,
 	options: PropTypes.array.isRequired,
+	isDisabled: PropTypes.bool,
 	otherSelecProps: PropTypes.object
 }
 

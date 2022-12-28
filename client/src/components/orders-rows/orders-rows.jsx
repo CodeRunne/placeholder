@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function OrdersRow({ userID, category, service, link, averageTime, quantity, charge,  status }) {
+function OrdersRow({ userID, category, service, link, quantity, charge,  status }) {
 	return (
 		<tr>
 	        <td>{userID}</td>
@@ -9,7 +9,6 @@ function OrdersRow({ userID, category, service, link, averageTime, quantity, cha
 	        <td>{service}</td>
 	        <td>{link}</td>
 	        <td>{status}</td>
-	        <td>{averageTime}</td>
 	        <td>{quantity}</td>
 	        <td>{charge}</td>
 	    </tr>
@@ -21,7 +20,6 @@ OrdersRow.propTypes = {
 	category: PropTypes.string.isRequired,
 	service: PropTypes.string.isRequired,
 	link: PropTypes.string.isRequired,
-	averageTime: PropTypes.string.isRequired,
 	charge: PropTypes.number.isRequired
 }
 

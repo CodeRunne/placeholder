@@ -87,6 +87,11 @@ export const FormGroup = styled.div`
 
 export const FormInputField = styled.input`
     ${InputStyles}
+
+    &[aria-disabled="true"],
+    &[disabled] {
+        cursor: not-allowed;
+    }
     
     &,
     &[type="checkbox"] {

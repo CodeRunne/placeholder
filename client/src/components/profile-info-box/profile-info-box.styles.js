@@ -57,8 +57,12 @@ export const ProfileInfoBoxItem = styled.div`
 export const ProfileInfoContainer = styled.div`
 	gap: .5rem;
 
-	@media (max-width: 600px) {
+	@media (max-width: 768px) {
 		gap: .8rem;
+	}
+
+	@media (max-width: 500px) {
+		gap: .7rem;
 	}
 `;
 
@@ -68,27 +72,39 @@ export const ProfileInfoBoxTitle = styled.h5`
 	text-transform: capitalize;
 
 	@media (max-width: 1200px) {
-		font-size: 1.4rem;
-	}
-
-	@media (max-width: 900px) {
-		font-size: 1.55rem;
-	}
-
-	@media (max-width: 768px) {
-		font-size: 1.42rem;
-	}
-
-	@media (max-width: 500px) {
-		font-size: 1.4rem;
-	}
-
-	@media (max-width: 425px) {
 		font-size: 1.5rem;
 	}
 
+	@media (max-width: 1100px) {
+		font-size: 1.55rem;
+	}
+
+	@media (max-width: 1024px) {
+		font-size: 1.45rem;
+	}
+
+	@media (max-width: 900px) {
+		font-size: 1.56rem;
+	}
+
+	@media (max-width: 800px) {
+		font-size: 1.54rem;
+	}
+
+	@media (max-width: 768px) {
+		font-size: 1.7rem;
+	}
+
+	@media (max-width: 500px) {
+		font-size: 1.53rem;
+	}
+
+	@media (max-width: 425px) {
+		font-size: 1.67rem;
+	}
+
 	@media (max-width: 375px) {
-		font-size: 1.6rem;
+		font-size: 1.75rem;
 	}
 
 	@media (max-width: 300px) {
@@ -102,34 +118,42 @@ export const ProfileInfoContent = styled.p`
     text-transform: capitalize;
 
     @media (max-width: 1200px) {
-		font-size: 1.03rem;
+		font-size: 1.08rem;
 	}
 
-	@media (max-width: 900px) {
-		font-size: 1.05rem;
-	}
-
-	@media (max-width: 768px) {
-		font-size: 1.07rem;
-	}
-
-	@media (max-width: 500px) {
-		font-size: 1.07rem;
-	}
-
-	@media (max-width: 425px) {
+	@media (max-width: 1100px) {
 		font-size: 1.12rem;
 	}
 
-	@media (max-width: 375px) {
-		font-size: 1.14rem;
+	@media (max-width: 1024px) {
+		font-size: 1.07rem;
 	}
 
-	@media (max-width: 320px) {
+	@media (max-width: 900px) {
 		font-size: 1.15rem;
 	}
 
-	@media (max-width: 300px) {
+	@media (max-width: 800px) {
+		font-size: 1.16rem;
+	}
+
+	@media (max-width: 768px) {
+		font-size: 1.17rem;
+	}
+
+	@media (max-width: 500px) {
+		font-size: 1.09rem;
+	}
+
+	@media (max-width: 425px) {
 		font-size: 1.2rem;
+	}
+
+	@media (max-width: 375px) {
+		font-size: 1.17rem;
+	}
+
+	@media (max-width: 300px) {
+		font-size: 1.16rem;
 	}
 `;

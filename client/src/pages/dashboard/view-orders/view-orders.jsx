@@ -1,34 +1,25 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useContext } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { AuthContext } from '../../../providers/auth-provider/auth-provider';
 import { fetchAllOrders } from '../../../redux/orders/orders.actions';
 import { selectAllOrders, selectOrderRequestStatus } from '../../../redux/orders/orders.selectors';
-import { Alert, Profile, EmptySlate, SEO, FilterFormContainer, Table, OrdersRow, Spinner } from '../../../components';
+import { Profile, EmptySlate, SEO, FilterFormContainer, Table, OrdersRow, Spinner } from '../../../components';
 import { OrdersContainer, OrderContentContainer } from './view-orders.styles';
 
 function ViewOrders({ fetchOrders, orders, ordersStatus }) {
 	const { currentUser: { id }} = useContext(AuthContext);
-	const [alertIsOpen, setAlertIsOpen] = useState(false);
 
 	useEffect(() => {
 		// Fetch All orders
 		fetchOrders(id);
-
-		// Display Alert
-		setTimeout(() => setAlertIsOpen(true), 2000);
-
-		return () => {
-			setAlertIsOpen(false);
-		}
 	}, [fetchOrders, id]);
 
 	let content;
 
-	if(ordersStatus !== "success") 
+	if(ordersStatus === "pending") 
 		content = (<Spinner style={{ alignItems: "normal", marginTop: "6rem" }} />);
-	else if(orders.length && ordersStatus === "success") {
+	else if(orders.length) {
 		const ordersTableHead = ["ID", "category", "services", "link", "status", "quantity", "charge", "average time"];
 
 		content = (
@@ -45,10 +36,6 @@ function ViewOrders({ fetchOrders, orders, ordersStatus }) {
 	} else 
 		content = ( <EmptySlate /> );
 
-			// {/* Alert */}
-			// {alertIsOpen && <Alert isOpen={alertIsOpen} setIsOpen={setAlertIsOpen}>
-			// 	<span className="font-bold">Need support to check an order?</span> Order support is done only through tickets <Link className="gradient-text" to="/dashboard/ticket-support">Click here to send new ticket</Link>
-			// </Alert>}
 	return (
 		<>	
 			{/* SEO */}
@@ -61,7 +48,7 @@ function ViewOrders({ fetchOrders, orders, ordersStatus }) {
         	{/* Orders Main Container */}
 			<OrdersContainer className="d-grid">
 				{/* User Profile */}
-				<Profile style={{ marginTop: alertIsOpen ? '2rem' : '0' }} />
+				<Profile />
 
 				{/* Orders Content */}
 				{content}

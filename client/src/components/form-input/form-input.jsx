@@ -9,7 +9,7 @@ import {
     FormInputInfo
 } from './form-input.styles';
 
-function FormInput({ label, error, info, handleChange, groupStyle, ...otherInputProps }) {
+function FormInput({ label, error, info, handleChange, handleBlur=f=>f, groupStyle, isDisabled, ...otherInputProps }) {
     return (
         <FormGroup 
             className="form-group d-flex d-flex-column" 
@@ -39,8 +39,12 @@ function FormInput({ label, error, info, handleChange, groupStyle, ...otherInput
                         className="form-input"
                         aria-invalid={error ? "true" : "false"}
                         onChange={handleChange}
+                        onBlur={handleBlur}
+                        aria-disabled={isDisabled ? true : false}
+                        disabled={isDisabled ? true : false}
                         required
                         autoComplete="false"
+                        readonly
                     />
                 </>
             }
@@ -58,7 +62,9 @@ FormInput.propTypes = {
     error: PropTypes.string,
     info: PropTypes.string,
     groupStyle: PropTypes.object,
-    handleChange: PropTypes.func.isRequired
+    handleChange: PropTypes.func.isRequired,
+    handleBlur: PropTypes.func,
+    isDisabled: PropTypes.bool
 }
 
 export default FormInput;

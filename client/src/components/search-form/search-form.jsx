@@ -7,10 +7,11 @@ import { AuthContext } from '../../providers/auth-provider/auth-provider';
 import { searchServices } from '../../redux/services/services.actions';
 import { selectServices } from '../../redux/services/services.selectors';
 import { searchOrdersByService } from '../../redux/orders/orders.actions';
+import { selectOrderRequestError } from '../../redux/orders/orders.selectors';
 import FormInput from '../form-input/form-input';
 import { SearchFormContainer } from './search-form.styles';
 
-function SearchForm({ allServices, searchServices, searchOrders, type }) {
+function SearchForm({ allServices, searchServices, searchOrders, type, orderError }) {
 	const { currentUser } = useContext(AuthContext);
 	const userID = currentUser?.id ?? '';
 	const [query, setQuery] = useState('');
@@ -25,9 +26,9 @@ function SearchForm({ allServices, searchServices, searchOrders, type }) {
 	function searchQuery(e) {
 		if(e.which === 13 || e.keyCode === 13) {
 			if(query) {
-				SearchOption(type, query);
+				SearchOption(type, query.trim());
 				
-				setError({ ...error, query: '' })
+				setError({ ...error, query: '' });
 			} else {
 				setError({ ...error, query: 'Add a category' })
 			}
@@ -48,7 +49,7 @@ function SearchForm({ allServices, searchServices, searchOrders, type }) {
 	        value={query}
 	        handleChange={({ target }) => setQuery(target.value)}
 	        onKeyDown={searchQuery}
-	        error={error?.query}
+	        error={error?.query || orderError}
 	       />
 	       
 	       {error.query ? <AiOutlineSearch style={{ top: '35%'}} /> : <AiOutlineSearch />}		
@@ -62,7 +63,8 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = createStructuredSelector({
-	allServices: selectServices 
+	allServices: selectServices,
+	orderError: selectOrderRequestError
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)

@@ -5,8 +5,8 @@ import { AuthContext } from '../../../providers/auth-provider/auth-provider';
 import NewOrderValidation from '../../../validation/new-order.validation';
 
 // Services Reducer
-import { fetchServices } from '../../../redux/services/services.actions';
-import { selectServicesCategory, selectServicesServiceName } from '../../../redux/services/services.selectors';
+import { fetchServices, searchServices } from '../../../redux/services/services.actions';
+import { selectServicesCategory, selectServicesServiceName, selectServices, selectServicesEntries } from '../../../redux/services/services.selectors';
 
 // Orders Reducers
 import { addNewOrder } from '../../../redux/orders/orders.actions';
@@ -26,21 +26,22 @@ import {
 	NewOrderDescriptionTitle
 } from './book-order.styles';
 
-function BookOrder({ fetchServices, categories, servicesList, addOrder, orderStatus, orderError }) {
+function BookOrder({ fetchServices, categories, servicesList, addOrder, orderStatus, orderError, filterServicesByCategory, servicesEntriesCategory, allServices }) {
 	const { currentUser: { id }} = useContext(AuthContext);
 	const orderCategories = categories.filter(category => category !== "all");
 	const [category, setCategory] = useState('');
 	const [service, setService] = useState('');
 	const [link, setLink] = useState('');
-	const [averageTime, setAverageTime] = useState('');
 	const [quantity, setQuantity] = useState('');
-	const [charge, setCharge] = useState('');
+	const [charge, setCharge] = useState(0.00);
+	const [serviceMaximumOrder, setServiceMaximumOrder] = useState(0);
+	const [serviceMinimumOrder, setServiceMinimumOrder] = useState(0);
 	const [errors, setErrors] = useState({});
 	const [formIsSubmitted, setFormIsSubmitted] = useState(false);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const { features, fastWorking, info } = newOrderDescription;
 
-
+	// Add new order
 	function bookOrder(e) {
 		e.preventDefault();
 
@@ -49,8 +50,11 @@ function BookOrder({ fetchServices, categories, servicesList, addOrder, orderSta
 			category,
 			service,
 			link,
-			averageTime,
-			quantity,
+			quantity: {
+				max: serviceMaximumOrder,
+				min: serviceMinimumOrder,
+				quantityValue: quantity
+			},
 			charge
 		}));
 	
@@ -72,6 +76,32 @@ function BookOrder({ fetchServices, categories, servicesList, addOrder, orderSta
 		fetchServices();
 	}, [fetchServices]);
 
+	// Get service maximum and minimum order
+	useEffect(() => {
+		if(allServices && category && service && service.includes(category)) {
+			const serviceCategory = allServices[category];
+
+			// Check if service exists
+			const existingService = serviceCategory.find(services => services.service.toLowerCase() === service);
+
+			if(existingService) {
+				const { min_order, max_order } = existingService;
+
+				// Set services minimum
+				setServiceMinimumOrder(min_order);
+
+				// Set services maximum order
+				setServiceMaximumOrder(max_order);
+			}
+		} else {
+			// Set services minimum to 0
+			setServiceMinimumOrder(0);
+
+			// Set services maximum order to 0
+			setServiceMaximumOrder(0);
+		}
+	}, [allServices, category, service, setServiceMinimumOrder, setServiceMaximumOrder]);
+
 	useEffect(() => {
 		if(Object.keys(errors).length === 0 && formIsSubmitted) {
 			const newOrder = {
@@ -79,7 +109,6 @@ function BookOrder({ fetchServices, categories, servicesList, addOrder, orderSta
 				category,
 				service,
 				link,
-				averageTime,
 				quantity,
 				charge
 			};
@@ -94,10 +123,48 @@ function BookOrder({ fetchServices, categories, servicesList, addOrder, orderSta
 				setService("");
 				setQuantity("");
 				setCharge("");
-				setAverageTime("");
 			}
 		}
-	}, [errors, formIsSubmitted, addOrder, orderStatus, id,  category, service, link, averageTime, quantity, charge, setCategory, setLink, setService, setQuantity, setCharge, setAverageTime]);
+	}, [errors, formIsSubmitted, addOrder, orderStatus, id,  category, service, link, quantity, charge]);
+
+	// Calculate Order Charge (service order * quantity)
+	function calculateOrderCharge() {
+		// Validate quantity
+		if(quantity < serviceMinimumOrder || quantity > serviceMaximumOrder) {
+			// Set quantity error
+			setErrors({ ...errors, quantity: `Quantity can't be less than ${serviceMinimumOrder} or greater than ${serviceMaximumOrder}` })
+		} else {
+			// Set quantity to null
+			setErrors({...errors, quantity: ""});
+
+			const parseQuantityToZeroIfEmpty = quantity ? 0 : quantity;
+			
+
+			if(parseInt(parseQuantityToZeroIfEmpty) >= 0 && parseInt(parseQuantityToZeroIfEmpty) <= 28000 && category && service) {
+				servicesEntriesCategory.forEach(([name, data]) => {
+					if(name === category) {
+						data.forEach(data => {
+							if(data.service.toLowerCase() === service.toLowerCase()) {
+								const {max_order} = data;
+
+								// Get order charge
+								const orderCharge = max_order * quantity;
+
+								// Set Order Charge
+								setCharge(orderCharge);
+							}
+						})
+					}
+				})
+			} else {
+				// Set charge to 0
+				setCharge(0);
+
+				// Set quantity to null
+				setErrors({...errors, quantity: ""});
+			}
+		}
+	}
 
 	return (
 		<NewOrderContainer className="d-grid">
@@ -130,7 +197,12 @@ function BookOrder({ fetchServices, categories, servicesList, addOrder, orderSta
 					name="services-category"
 					options={orderCategories}
 					value={category}
-					handleChange={({ target }) => setCategory(target.value)}
+					handleChange={({ target }) => {
+						setCategory(target.value)
+
+						// Filter services by category
+						filterServicesByCategory(target.value);
+					}}
 					error={errors?.categories}
 				/>
 
@@ -141,6 +213,7 @@ function BookOrder({ fetchServices, categories, servicesList, addOrder, orderSta
 					value={service}
 					handleChange={({ target }) => setService(target.value)}
 					error={errors?.service}
+					isDisabled={category ? false : true}
 				/>
 
 				<FormInput 
@@ -153,32 +226,24 @@ function BookOrder({ fetchServices, categories, servicesList, addOrder, orderSta
 				/>
 
 				<FormInput 
-					type="text"
+					type="number"
 					name="quantity"
 					label="Quantity"
-					info="min: 500 - max: 28000"
+					info={service ? `min: ${serviceMinimumOrder} - max: ${serviceMaximumOrder}` : ""}
 					value={quantity}
 					handleChange={({ target }) => setQuantity(target.value)}
+					handleBlur={() => calculateOrderCharge()}
 					error={errors?.quantity}
 				/>
 
 				<FormInput 
-					type="text"
-					name="average_time"
-					label="Average Time"
-					placeholder="1 hour 30 minute"
-					value={averageTime}
-					handleChange={({ target }) => setAverageTime(target.value)}
-					error={errors?.averageTime}
-				/>
-
-				<FormInput 
-					type="text"
+					type="number"
 					name="charge"
 					label="Charge"
 					value={charge}
 					handleChange={({ target }) => setCharge(target.value)}
 					error={errors?.charge}
+					isDisabled
 				/>
 
 				<Button
@@ -236,14 +301,17 @@ function BookOrder({ fetchServices, categories, servicesList, addOrder, orderSta
 
 const mapDispatchToProps = dispatch => ({
 	fetchServices: () => dispatch(fetchServices()),
-	addOrder: order => dispatch(addNewOrder(order))
+	addOrder: order => dispatch(addNewOrder(order)),
+	filterServicesByCategory: serviceCategory => dispatch(searchServices(serviceCategory))
 });
 
 const mapStateToProps = createStructuredSelector({
 	categories: selectServicesCategory,
 	servicesList: selectServicesServiceName,
 	orderStatus: selectOrderRequestStatus,
-	orderError: selectOrderRequestError
+	orderError: selectOrderRequestError,
+	servicesEntriesCategory: selectServicesEntries,
+	allServices: selectServices
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookOrder);

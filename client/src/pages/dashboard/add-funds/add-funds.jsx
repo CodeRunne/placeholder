@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../providers/auth-provider/auth-provider';
-import { telegram_payment_support_link } from '../../../config';
+import { telegram_payment_support_link, fetchPaymentMethods } from '../../../config';
 import AddFundsValidation from '../../../validation/add-funds.validation';
-import { addFundsNote, addFundsBonuses, addFundsPaymentOptions, addFundsPaymentLinks } from '../../../constants/dashboard';
+import { addFundsNote, addFundsBonuses } from '../../../constants/add-funds';
 import { NoticeBox, NoticeNote, Modal, FormLabel, FormSelect, FormInput, Button } from '../../../components';
 import { 
 	AddFundsContainer, 
@@ -16,6 +17,8 @@ import {
 
 function AddFunds() {
 	const { currentUser: { id }} = useContext(AuthContext);
+	const [paymentMethods, setPaymentMethods] = useState([]);
+	const [paymentMethodTypes, setPaymentMethodTypes] = useState([]);
 	const [paymentMethod, setPaymentMethod] = useState("");
 	const [amount, setAmount] = useState("");
 	const [errors, setErrors] = useState({});
@@ -36,18 +39,33 @@ function AddFunds() {
 		e.preventDefault();
 
 		setErrors(AddFundsValidation({ paymentMethod, amount }));		
-
 		setFormIsSubmitted(true);
 	}
 
 	useEffect(() => {
-		if(Object.keys(errors).length === 0 && formIsSubmitted) {
-			const paymentLink = addFundsPaymentLinks[paymentMethod];
-		
-			console.log(paymentLink, id);
-		}
-	}, [errors, formIsSubmitted, paymentMethod, id]);
+		axios.get(`${fetchPaymentMethods}`)
+			.then(({ data }) => {
+				// Check if data exists
+				if(data) {
+					// Set payment methods
+					setPaymentMethods(data);
 
+					// Set payment methods names
+					const getPaymentMethodTypes = data.map(data => data.type);
+
+					// Set payment method types
+					setPaymentMethodTypes(getPaymentMethodTypes);
+				}
+			})
+	}, [setPaymentMethods, setPaymentMethodTypes]);
+
+	useEffect(() => {
+		if(Object.keys(errors).length === 0 && formIsSubmitted) {
+			const { url } = paymentMethods.find(({ type }) => type.toLowerCase() === paymentMethod.toLowerCase());
+
+			console.log(url, id);
+		}
+	}, [errors, formIsSubmitted, paymentMethod, paymentMethods, id]);
 
 
 	return (
@@ -90,7 +108,7 @@ function AddFunds() {
 					<FormSelect 
 						label="payment method"
 						name="payment_method"
-						options={addFundsPaymentOptions}
+						options={paymentMethodTypes}
 						value={paymentMethod}
 						handleChange={({ target }) => setPaymentMethod(target.value)}
 						error={errors?.paymentMethod}

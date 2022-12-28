@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const HamburgerButton = styled.span`
+	line-height: 0;
+	
 	svg {
 		font-size: 1.8rem;
 		color: var(--grey);

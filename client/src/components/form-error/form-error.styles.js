@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const ErrorText = styled.span`
     font-size: 1.02rem;
-    margin-top: 0.4rem;
     margin-bottom: 0.7rem;
     color: var(--accent);
 

@@ -66,11 +66,25 @@ function ordersReducer(state=initialState, action) {
 				data: [].concat(action.payload),				
 				status: 'success'
 			}
-		case OrdersActionTypes.SEARCH_ORDERS_BY_SERVICE:
+		case OrdersActionTypes.SEARCH_ORDERS_BY_SERVICE_SUCCESS:
 			return {
 				...state,
 				data: [].concat(action.payload),
-				status: 'success'
+				status: 'success',
+				error: null
+			}
+		case OrdersActionTypes.SEARCH_ORDERS_BY_SERVICE_FAILED:
+			return {
+				...state,
+				error: action.payload.message,
+				status: "failed",
+				data: [].concat(action.payload.data)
+			}
+		case OrdersActionTypes.RESET_ORDERS_STATUS:
+			return {
+				...state,
+				error: null,
+				status: "idle"
 			}
 		default:
 			return state

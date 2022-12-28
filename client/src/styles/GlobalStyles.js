@@ -31,11 +31,15 @@ const GlobalStyles = createGlobalStyle`
     }
 
     .code-grn {
-        color: var(--green-tint-2);
+        color: #00ffd0cc;
     }
 
     .code-or {
-        color: orange;
+        color: #fcd274b8;
+    }
+
+    .code-or-lg {
+        color: #f2c596;
     }
 
     ul {

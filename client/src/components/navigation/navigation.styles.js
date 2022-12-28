@@ -40,6 +40,7 @@ export const NavigationWrapper = styled.div`
 export const NavigationLogo = styled(Link)`
     font-size: 1.7rem;
     font-weight: bold;
+    color: var(--primary);
     text-transform: uppercase;
 
     @media (max-width: 1200px) {

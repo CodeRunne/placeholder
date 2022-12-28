@@ -30,6 +30,11 @@ export const FormSelectField = styled.select`
     transition: all .3s ease;
     cursor: pointer;
 
+    &[aria-disabled="true"],
+    &[disabled] {
+        cursor: not-allowed;
+    }
+
     @media (max-width: 900px) {
         height: 3.5rem;
         padding: 1rem 1.2rem;

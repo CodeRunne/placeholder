@@ -64,14 +64,15 @@ export const NotificationIcon = styled.span`
 
 export const NotificationText = styled.p`
 	width: 76%;
-	font-size: 1.06rem;
+	font-size: 1.1rem;
+    font-weight: 700;
 	line-height: 1.5;
     word-break: break-all;
     color: var(--grey-tint-7);
     padding-left: .4rem;
 
     @media (max-width: 1100px) {
-        font-size: 1.1rem; 
+        font-size: 1.12rem; 
     }
 
     @media (max-width: 900px) {

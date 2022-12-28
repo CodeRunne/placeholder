@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectServices } from '../../../redux/services/services.selectors';
+import { selectServicesEntries } from '../../../redux/services/services.selectors';
 import { fetchServices } from '../../../redux/services/services.actions';
 import { 
    Alert,
@@ -40,7 +40,7 @@ function Services({ fetchServices, services }) {
          />
          
          {/* Service List Table */}
-         <Table tableHead={servicesTableHead}>
+         <Table taselectServicesEntriesleHead={servicesTableHead}>
             {services.map(([name, data]) => (<ServiceCollection key={name} title={name} data={data}  />))}
          </Table>
      </ServicesContainer>
@@ -55,7 +55,7 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const mapStateToProps = createStructuredSelector({
-   services: selectServices
+   services: selectServicesEntries
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Services);

@@ -209,7 +209,7 @@ const database = {
         twitter: [
             {
                 id: 7567,
-                service: 'twitter enhancer - [instagram start server]',
+                service: 'twitter enhancer - [twitter start server]',
                 rate: 6.08,
                 min_order: 800,
                 max_order: 12600,
@@ -267,7 +267,7 @@ const database = {
             id: 2,
             userID: 'another user',
             category: 'instagram',
-            service: 'instagram enhancer - [instagram start server]',
+            service: 'instagram enhancer - [twitter start server]',
             link: 6362,
             quantity: 5000,
             status: 'pending',
@@ -275,13 +275,25 @@ const database = {
             averageTime: '30 minutes'
         }
     ],
-    funds: [
-        {
-            userID: 'dsfs345fd',
-            accountBalance: 32.10,
-            balanceSpent: 0.00
-        }
-    ],
+    funds: {
+        paymentMethods: [
+            {
+                type: 'CoinPayment « [Up to 7% Bonus] 🎇 » BTC',
+                url: 'https://coinbase/btc'
+            },
+            {
+                type: 'Binance « [Up to 5% Bonus] 🎇 » BTC',
+                url: 'https://binance/btc'
+            },
+        ],
+        users: [
+            {
+                userID: 'dsfs345fd',
+                accountBalance: 32.10,
+                balanceSpent: 0.00
+            }
+        ]
+    },
     mails: [],
     session: ["mrans4eh39n"]
 }
@@ -323,30 +335,30 @@ app.post("/register", (req, res) => {
             username,
             email,
             password,
-            verified_mail: false,
+            verified_mail: true,
             created_at: new Date().toISOString()
         });
 
         // User ID
-        const userID = users[users.length - 1].id; 
-
+        const newUser = users[users.length - 1]; 
+        const { id, verified_mail } = newUser;
 
         funds.push({
-            userID,
+            userID: id,
             accountBalance: 0.00, 
             balanceSpent: 0.00
         });
 
-        const { accountBalance, balanceSpent } = funds.filter(fund => fund.userID === userID)[0];
-        const userOrdersAmount = orders.filter(order => order.userID === userID).length || 0;
+        const { accountBalance, balanceSpent } = funds.users.filter(fund => fund.userID === id)[0];
+        const userOrdersAmount = orders.filter(order => order.userID === id).length || 0;
         
 
         const user = {
-            id: users[users.length - 1].id,
+            id,
             sessionID: session[0],
             username,
             email,
-            verified_mail: false,
+            verified_mail,
             funds: {accountBalance, balanceSpent},
             orders_amount: userOrdersAmount
         }
@@ -367,7 +379,7 @@ app.post("/login", (req, res) => {
 
     if(existingUser) {
         const { id, sessionID, username, email, verified_mail } = existingUser;
-        const { accountBalance, balanceSpent } = funds.filter(fund => fund.userID === id)[0];
+        const { accountBalance, balanceSpent } = funds.users.filter(fund => fund.userID === id)[0];
         const userOrdersAmount = orders.filter(order => order.userID === id).length;
 
         // Remove previous session
@@ -462,7 +474,7 @@ app.post('/account/:token', (req, res) => {
 
         if(existingUser) {
             const { id, sessionID, username, email, verified_mail } = existingUser;
-            const { accountBalance, balanceSpent } = funds.filter(fund => fund.userID === id)[0];
+            const { accountBalance, balanceSpent } = funds.users.filter(fund => fund.userID === id)[0];
             const userOrdersAmount = orders.filter(order => order.userID === id).length;
 
             const user = {
@@ -496,11 +508,24 @@ app.get("/logout", (req, res) => {
 app.post("dashboard/add-funds", (req, res) => {
     const { userID, paymentMethod, amount } = req.body;
     const { users } = database;
-    console.log(req.body)
+
+    const checkIfUserExists = users.find(user => user.id === userID);
+
+    if(checkIfUserExists) {
+        console.log(checkIfUserExists);
+    }
 });
 
 
-//Services Routes 
+// Get funds payment methods
+app.get("/dashboard/funds/payment-methods", (req, res) => {
+    const { funds } = database;
+    const { paymentMethods } = funds;
+
+    res.send(paymentMethods)
+})
+
+// *********************** Services Routes ************************ 
 app.get("/services", (req, res) => {
     const { services } = database;
 
@@ -536,8 +561,7 @@ app.post("/services/search", (req, res) => {
         res.send({ status: 'success', services: {[serviceType]: existingServices}});
 })
 
-// Orders
-
+// ************************** Orders ****************************
 // Show all orders
 app.get("/orders", (req, res) => {
     const { orders } = database;
@@ -547,11 +571,11 @@ app.get("/orders", (req, res) => {
 
 // Book orders
 app.post("/dashboard/book-order", (req, res) => {
-    const { userID, category, service, link, averageTime, quantity, charge } = req.body;
+    const { userID, category, service, link, quantity, charge } = req.body;
     
     // Database
     const { orders } = database; 
-    const validateData = [userID, category, service, link, averageTime, quantity, charge].every(value => Boolean(value));
+    const validateData = [userID, category, service, link, quantity, charge].every(value => Boolean(value));
 
     if(validateData) {
         const newOrder = {
@@ -560,7 +584,6 @@ app.post("/dashboard/book-order", (req, res) => {
             category, 
             service, 
             link, 
-            averageTime, 
             quantity, 
             charge,  
             status: 'pending',
@@ -568,6 +591,7 @@ app.post("/dashboard/book-order", (req, res) => {
         };
 
         orders.push(newOrder);
+        console.log(newOrder);
 
         res.send({ status: 'success', newOrder });
     } else {
@@ -580,16 +604,18 @@ app.post("/dashboard/orders/search", (req, res) => {
     const { orderService, userID } = req.body;
     const { orders } = database;
 
-    const existingOrders = orders.filter(order => order.userID === userID).filter(order => order.service.toLowerCase().includes(orderService.toLowerCase()));
+    const existingOrders = orders.filter(order => order.userID === userID).find(order => order.service.toLowerCase().includes(orderService.toLowerCase()));
 
     if(existingOrders)
-        res.send({ status: 'success', data: existingOrders});
+        res.status(200).send({ status: 'success', data: existingOrders});
+    else {
+        res.send({ data: orders, status: 'error', message: "Order does not exist" });
+    }
 })
 
 // Mass orders
 app.post("/dashboard/orders/mass-order", (req, res) => {
     const { massOrder } = req.body;
-    console.log(massOrder);
 });
 
 // Get user order

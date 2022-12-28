@@ -23,7 +23,7 @@ function Navigation() {
             {/* Navigation wrapper */}
             <NavigationWrapper className="d-flex d-j-sbtw d-a-cnt">
                 {/* Navigation Logo */}
-                <NavigationLogo className="gradient-text" to="/">{APP_NAME}</NavigationLogo>
+                <NavigationLogo to="/">{APP_NAME}</NavigationLogo>
 
                 {/* Navigation Right */}
                 <NavigationRight className="navigation-right d-flex d-a-cnt">

@@ -64,6 +64,14 @@ export const FormHeading = styled.div`
     @media (max-width: 425px) {
         gap: 1.12rem;
     }
+
+    @media (max-width: 375px) {
+        gap: 2rem;
+    }
+
+    @media (max-width: 320px) {
+        gap: 1.5rem;
+    }
 `;
 
 export const FormHeadingMainText = styled.h3`
@@ -79,7 +87,11 @@ export const FormHeadingMainText = styled.h3`
     }
 
     @media (max-width: 375px) {
-        font-size: 2rem;
+        font-size: 2.5rem;
+    }
+
+    @media (max-width: 320px) {
+        font-size: 2.4rem;    
     }
 `;
 
@@ -97,5 +109,13 @@ export const FormHeadingSubText = styled.p`
 
     @media (max-width: 425px) {
         font-size: 1.23rem;
+    }
+
+    @media (max-width: 375px) {
+        font-size: 1.27rem;
+    }
+
+    @media (max-width: 320px) {
+        font-size: 1.25rem;    
     }
 `;

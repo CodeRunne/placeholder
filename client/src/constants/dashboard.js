@@ -1,4 +1,4 @@
-import { APP_NAME, telegram_membership_link, telegram_payment_support_link, coinbasePaymentLink, binancePaymentLink } from '../config';
+import { APP_NAME, telegram_membership_link, telegram_payment_support_link } from '../config';
 import { IoReorderTwo, IoMail, IoPint, IoPerson, IoCash, IoInformation, IoJournal } from 'react-icons/io5';
 
 export const navigationLinks = [
@@ -46,8 +46,6 @@ export const navigationLinks = [
 
 export const ticketSupportNote = ["✅ Please send your message in English.", "✅ We will respond 5 minutes to 6 hours, depending on the ticket overload.", "✅ If the ticket is solved, please use another ticket.", "✅ Please do not create multiple ticket for the same order Id."];
 
-export const addFundsNote = ["✅ If you don't pay the exact amount, your payment, your payment won't be completed, even 1 cent more or less.", "✅ Be sure to use a real email [If you use a fake email, you may lose your money, if you pay the wrong amount].", "✅ All details will be sent to your mail after making payment."];
-
 export const newOrderNote = [
     {
         note: "Due of the new Telegram Security update, Telegram member services are working slow now. We update this list daily, so if you want the best services, click this link daily:",
@@ -73,22 +71,4 @@ export const newOrderDescription = {
         link: "🧷 Link Format: https://t.me/example or @example",
         content: ["🟨 The number you order will be delivered in the same amount, regardless of the channel drop", "🟨 If you change the link while you work, your order will be changed to a complete state, in which we will not refund the cost"]
     }
-};
-
-export const addFundsBonuses = ["✔ 3.5% Bonus for +25$ payment", "✔ 4% Bonus for +1000$ payment", "✔ 5% Bonus for +4000$ payment", "✔ 7% Bonus for +10000$ payment"];
-
-export const addFundsPaymentOptions = [
-    {
-        name: 'CoinPayment « [Up to 7% Bonus] 🎇 » BTC',
-        link: 'coinbase'
-    },
-    {
-        name: 'Binance « [Up to 5% Bonus] 🎇 » BTC',
-        link: 'binance'
-    }
-];
-
-export const addFundsPaymentLinks = {
-    coinbase: coinbasePaymentLink,
-    binance: binancePaymentLink
 };

@@ -4,39 +4,20 @@ export const DashboardContainer = styled.main`
 	height: 100vh;
 
     display: grid;
-    grid-template-columns: repeat(2,8rem) 4rem repeat(5,1fr) repeat(3,8rem);
     grid-template-rows: 1fr;
-
-    @media (max-width: 1200px) {
-    	grid-template-columns: repeat(2,8rem) 5rem repeat(5,1fr) repeat(3,8rem);
-    }
-
-    @media (max-width: 1024px) {
-    	grid-template-columns: repeat(2,7rem) 6rem repeat(5,1fr) repeat(3,8rem);
-    }
-
-    @media (max-width: 900px) {
-    	grid-template-columns: repeat(2,7rem) 7.5rem repeat(5,1fr) repeat(3,8rem);
-    }
-
-    @media (max-width: 800px) {
-    	grid-template-columns: 5rem repeat(5,1fr) repeat(3,8rem);
-    }
-
-    @media (max-width: 425px) {
-        grid-template-columns: 1fr;
-    }
 `;
 
 export const DashboardMainContainer = styled.main`
-    grid-column: 4/-1;
+    width: calc(100% - 263.984px);
+    margin-left: 263.984px;
 
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: min-content 1fr min-content;
 
     @media (max-width: 768px) {
-        grid-column: 1/-1;
+        width: 100%;
+        margin-left: 0;
     }
 `;
  

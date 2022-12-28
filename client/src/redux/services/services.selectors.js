@@ -1,12 +1,16 @@
 import { createSelector } from 'reselect';
-import getServicesNames from './services.utils';
 
 export const selectAllServices = state => state.services;
 
 export const selectServices = createSelector(
 	[selectAllServices],
-	services => Object.entries(services.services)
-)
+	services => services.services
+);
+
+export const selectServicesEntries = createSelector(
+	[selectServices],
+	services => Object.entries(services)
+);
 
 export const selectServicesCategory = createSelector(
 	[selectAllServices],
@@ -15,10 +19,11 @@ export const selectServicesCategory = createSelector(
 
 export const selectServicesServiceName = createSelector(
 	[selectServices],
-	services => getServicesNames(services)
+	services => Object.values(services).flat().map(service => service.service)
 );
 
 export const selectServicesStatus = createSelector(
 	[selectAllServices],
 	({ status }) => status 
 );
+

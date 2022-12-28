@@ -48,10 +48,18 @@ export const filterOrdersByStatus = filteredOrders => ({
 
 
 export const searchOrdersByServicesSuccess = order => ({
-	type: OrdersActionTypes.SEARCH_ORDERS_BY_SERVICE,
+	type: OrdersActionTypes.SEARCH_ORDERS_BY_SERVICE_SUCCESS,
 	payload: order
 });
 
+export const searchOrdersByServicesFailed = response => ({
+	type: OrdersActionTypes.SEARCH_ORDERS_BY_SERVICE_FAILED,
+	payload: response
+});
+
+export const resetOrdersStatus = () => ({
+	type: OrdersActionTypes.RESET_ORDERS_STATUS
+});
 
 // Requests
 // Add Order
@@ -125,10 +133,13 @@ export const searchOrdersByService = (orderService, userID) => {
 		const postServiceOption = axios.post(searchOrdersByServiceApi, {orderService, userID});
 
 		postServiceOption
-			.then(({ data: { status, data } }) => {
+			.then(({ data: { status, data, message } }) => {
 				if(status === "success") 
 					dispatch(searchOrdersByServicesSuccess(data))
-			})
-			.catch(error => console.log(error))
+				else if(status === "error") {
+					console.log(data);
+					dispatch(searchOrdersByServicesFailed({message, data}))
+				}
+			}) 
 	}
 }

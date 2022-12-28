@@ -26,6 +26,7 @@ export const bookMassOrder = `${API_URL}/dashboard/orders/mass-order`;
 
 // Add funds API
 export const addFundsApi = `${API_URL}/dashboard/add-funds`;
+export const fetchPaymentMethods = `${API_URL}/dashboard/funds/payment-methods`;
 
 // Ticket support
 export const ticketSupportApi = `${API_URL}/dashboard/ticket-support`;
@@ -44,7 +45,3 @@ export const telegram_membership_link = "https://t.me";
 
 // Telegram Payment Support Group Link 
 export const telegram_payment_support_link = "https://t.me/payment-support";
-
-// Payment Links
-export const coinbasePaymentLink = "https://coinbase/btc";
-export const binancePaymentLink = "https://binance/btc";

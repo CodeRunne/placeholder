@@ -13,14 +13,19 @@ export const DashboardNavigationContainer = styled.nav`
     }
 
     @media (max-width: 375px) {
-    	padding: 1rem 2.2rem;
+    	padding: 2rem 2.2rem;
     }
 `;
 
 export const DashboardNavigationLogo = styled(Link)`
 	font-size: 1.5rem;
 	font-weight: 700;
+	color: var(--primary);
 	text-transform: uppercase;
+
+	@media (max-width: 900px) {
+		font-size: 1.7rem;
+	}
 `;
 
 
@@ -29,17 +34,24 @@ export const DashboardNavigationRight = styled.div`
 
 	& > button {
 		font-size: 1.07rem;
+		padding: .3rem .5rem; 
 	
 		@media (max-width: 1024px) {
 			font-size: 1.18rem;
 		}
 
 		@media (max-width: 425px) {
-			font-size: 1.23rem;
+			font-size: 1.3rem;
+			line-height: 0;
+		}
+
+		@media (max-width: 375px) {
+			font-size: 1.4rem;
+			padding: .3rem;
 		}
 
 		@media (max-width: 320px) {
-			font-size: 1.25rem;
+			font-size: 1.37rem;
 		}
 	}
 

@@ -1,5 +1,5 @@
-function getServicesNames(services) {
-	let flattenedServices = services.flat();
+function getServicesNames(serviceEntries, services) {
+	let flattenedServices = serviceEntries.flat();
 		flattenedServices = flattenedServices.flat();
 
 	// Filter all objects
@@ -7,6 +7,7 @@ function getServicesNames(services) {
 
 	// Get All Services Name
 	const servicesName = servicesItems.map(item => item.service);
+	console.log(serviceEntries, services, servicesItems, Object.values(services));
 
 	return servicesName;
 }
